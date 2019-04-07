@@ -22,6 +22,11 @@ class Board:
             return
         self.__move_empty_position_to(command)
 
+    def randomize(self, moves_count):
+        for _i in range(moves_count):
+            move_to = random.sample(self.available_movements(), 1)[0]
+            self.move(move_to)
+
     def __initialize_board(self, length):
         board = numpy.zeros((length, length))
         start_values = 0
