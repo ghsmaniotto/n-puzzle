@@ -15,6 +15,7 @@ class Board:
 
     def available_movements(self):
         move_to = ['UP', 'DOWN', 'RIGHT', 'LEFT']
+        random.shuffle(move_to)
         return list(filter(lambda x: self.__valid_movement(x), move_to))
 
     def move(self, command):
