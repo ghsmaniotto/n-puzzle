@@ -42,6 +42,10 @@ class Board:
             move_to = random.sample(self.available_movements(), 1)[0]
             self.move(move_to)
 
+    def is_goal_achieved(self):
+        compared_board = self.board == self.__goal_board
+        return sum(map(sum, compared_board)) == self.__size
+
     def __initialize_board(self, length):
         board = numpy.zeros((length, length))
         start_values = 0
