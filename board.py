@@ -19,7 +19,6 @@ class Board:
         return list(filter(lambda x: self.__valid_movement(x), move_to))
 
     def move(self, command):
-        print(command)
         if not self.__valid_movement(command):
             print('Invalid movement')
             return
@@ -38,9 +37,12 @@ class Board:
             pass
 
     def randomize(self, moves_count):
-        for _i in range(moves_count):
+        movements = []
+        for _ in range(moves_count):
             move_to = random.sample(self.available_movements(), 1)[0]
+            movements.insert(0, move_to)
             self.move(move_to)
+        return movements
 
     def is_goal_achieved(self):
         compared_board = self.board == self.__goal_board
