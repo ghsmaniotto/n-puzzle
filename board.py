@@ -25,6 +25,18 @@ class Board:
             return
         self.__move_empty_position_to(command)
 
+    def undo_move(self, command):
+        if command == 'LEFT':
+            self.move('RIGHT')
+        elif command == 'RIGHT':
+            self.move('LEFT')
+        elif command == 'DOWN':
+            self.move('UP')
+        elif command == 'UP':
+            self.move('DOWN')
+        else:
+            pass
+
     def randomize(self, moves_count):
         for _i in range(moves_count):
             move_to = random.sample(self.available_movements(), 1)[0]
