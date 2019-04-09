@@ -57,3 +57,27 @@ class Tree:
                     to_visit_nodes.insert(0, new_node)
 
         return self.__initial_board, node
+
+    def DFS(self):
+        to_visit_nodes = [self.__head]
+        current_node = node = self.__head
+
+        while len(to_visit_nodes) > 0:
+            current_node = to_visit_nodes.pop(0)
+            board = copy.deepcopy(self.__initial_board)
+
+            for movement in current_node.value:
+                board.move(movement)
+
+            if board.is_goal_achieved():
+                node = current_node
+                self.__initial_board = copy.deepcopy(board)
+                break
+
+            if current_node.depth < self.__max_depth:
+                for movement in board.available_movements():
+                    if not self.__is_inverse(current_node, movement):
+                        new_node = self.insert_node(current_node, movement)
+                        to_visit_nodes.insert(0, new_node)
+
+        return self.__initial_board, node
