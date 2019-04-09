@@ -1,5 +1,6 @@
 from node import Node
 from board import Board
+import copy
 
 
 class Tree:
@@ -33,3 +34,26 @@ class Tree:
 
     def remove_node(self, from_node, value):
         from_node.remove_child(value)
+
+    def BFS(self):
+        to_visit_nodes = [self.__head]
+        node = self.__head
+
+        while len(to_visit_nodes) > 0:
+            current_node = to_visit_nodes.pop()
+            board = copy.deepcopy(self.__initial_board)
+
+            for movement in current_node.value:
+                board.move(movement)
+
+            if board.is_goal_achieved():
+                node = current_node
+                self.__initial_board = copy.deepcopy(board)
+                break
+
+            for movement in board.available_movements():
+                if not self.__is_inverse(current_node, movement):
+                    new_node = self.insert_node(current_node, movement)
+                    to_visit_nodes.insert(0, new_node)
+
+        return self.__initial_board, node
