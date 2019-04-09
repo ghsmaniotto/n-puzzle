@@ -5,7 +5,9 @@ import random
 class Board:
     def __init__(self, board_length):
         self.length = board_length
+        self.__size = self.length * self.length
         self.board = self.__initialize_board(board_length)
+        self.__goal_board = self.__initialize_board(board_length)
         self.empty_position = {'x': 0, 'y': 0}
 
     def print_board(self):
