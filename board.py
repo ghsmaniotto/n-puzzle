@@ -52,6 +52,10 @@ class Board:
         compared_board = self.board == self.__goal_board
         return self.__size - sum(map(sum, compared_board))
 
+    def sum_of_absolute_differences(self):
+        difference = self.board - self.__goal_board
+        return sum(sum(map(lambda x: abs(x), difference)))
+
     def __initialize_board(self, length):
         board = numpy.zeros((length, length))
         start_values = 0
