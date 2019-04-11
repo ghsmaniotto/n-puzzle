@@ -48,6 +48,10 @@ class Board:
         compared_board = self.board == self.__goal_board
         return sum(map(sum, compared_board)) == self.__size
 
+    def difference_to_goal(self):
+        compared_board = self.board == self.__goal_board
+        return self.__size - sum(map(sum, compared_board))
+
     def __initialize_board(self, length):
         board = numpy.zeros((length, length))
         start_values = 0
