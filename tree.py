@@ -107,4 +107,42 @@ class Tree:
                 if len(to_visit_nodes) == 1:
                     self.__max_depth += 5
 
-        return self.__initial_board, node
+        return node.value
+
+    def A_star(self, heuristic):
+        to_visit_nodes = [
+            {'wheight': self.__head.depth, 'node': self.__head}
+        ]
+        node = self.__head
+
+        while len(to_visit_nodes) > 0 and self.size < 20000:
+            current_node = to_visit_nodes.pop(0)['node']
+            board = copy.deepcopy(self.__initial_board)
+
+            for movement in current_node.value:
+                board.move(movement)
+
+            if board.is_goal_achieved():
+                node = current_node
+                self.__initial_board = copy.deepcopy(board)
+                break
+
+            for movement in board.available_movements():
+                if not self.__is_inverse(current_node, movement):
+                    new_node = self.insert_node(current_node, movement)
+                    heuristic_value = heuristic(board) + new_node.depth
+                    to_visit_nodes.insert(
+                        0, {'wheight': heuristic_value, 'node': new_node}
+                    )
+                    to_visit_nodes.sort(key=lambda x: x['wheight'])
+
+        return node.value
+
+    def heuristic_a(self, board):
+        return board.difference_to_goal()
+
+    def heuristic_b(self, board):
+        return board.sum_of_absolute_differences()
+
+    def manhattan_distance(self, board):
+        return board.manhattan_distance()
