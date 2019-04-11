@@ -56,6 +56,18 @@ class Board:
         difference = self.board - self.__goal_board
         return sum(sum(map(lambda x: abs(x), difference)))
 
+    def manhattan_distance(self):
+        total_sum = 0
+        for x_1, y_1 in numpy.ndindex(self.board.shape):
+            value = self.board[x_1, y_1]
+            x_2, y_2 = self.board_index(self.__goal_board, value)
+            total_sum += abs(x_1 - x_2) + abs(y_1 - y_2)
+        return total_sum
+
+    def board_index(self, board, value):
+        index = numpy.where(board == value)
+        return index[0][0], index[1][0]
+
     def __initialize_board(self, length):
         board = numpy.zeros((length, length))
         start_values = 0
