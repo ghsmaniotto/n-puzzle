@@ -5,6 +5,11 @@ class Node:
         self.__childs = []
 
     def add_child(self, node):
+        """ Inserts a child in the node.
+
+        Keyword arguments:
+        node -- node to insert a new child
+        """
         if self.__existed_child(node.value):
             return
         else:
@@ -12,12 +17,19 @@ class Node:
             return node
 
     def remove_child(self, value):
+        """ Removes a child in the node.
+
+        Keyword arguments:
+        value -- value to be removed
+        """
         self.__childs.remove(
             list(filter(lambda x: x.value == value, self.__childs))[0]
         )
 
-    def get_childs(self):
-        return self.__childs
-
     def __existed_child(self, value):
+        """ Check if the value already exists in node child.
+
+        Keyword arguments:
+        value -- value to be checked
+        """
         len(list(filter(lambda x: x.value == value, self.__childs))) > 0
