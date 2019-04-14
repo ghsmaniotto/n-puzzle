@@ -7,7 +7,7 @@ class Tree:
     def __init__(self, board):
         self.__head = Node()
         self.__depth = 0
-        self.__max_depth = 15
+        self.__max_depth = 20
         self.__initial_board = board
         self.size = 0
         self.MAX_SIZE = 100000
